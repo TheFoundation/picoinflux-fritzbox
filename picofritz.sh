@@ -24,8 +24,8 @@ timestamp_nanos() { if [[ $(date +%s%N |wc -c) -eq 20  ]]; then date -u +%s%N;el
 			
 			) |sed 's/<\/.\+//g;s/^<//g;s/>/=/g;s/NewX_AVM_DE_TotalBytesSent64/trafficmonthly_wan_tx/g;s/NewX_AVM_DE_TotalBytesReceived64/trafficmonthly_wan_rx/g;s/NewByteSendRate/uplink_wan_current_tx/g;s/NewByteReceiveRate/uplink_wan_current_rx/g;s/NewLayer1UpstreamMaxBitRate/uplink_wan_linkspeed_tx/g;s/NewLayer1DownstreamMaxBitRate/uplink_wan_linkspeed_rx/g;s/NewUptime/uptime/g'|while read a ;do if [[ "$a" =~ ^uplink_wan_linkspeed.* ]] ;then echo $(echo $a|cut -d"=" -f1)"="$(expr $(echo $a|cut -d"=" -f2) "/" 8 );else echo "$a";fi;done| while read b ;do if [[ "$b" =~ ^trafficmonthly.* ]] ;then echo $(echo $b|cut -d"=" -f1)"="$(expr $(echo $b|cut -d"=" -f2) "/" 1172951 );else echo "$b";fi;done|grep -e ^uplink -e ^traffic -e ^uptime 2>/dev/null |grep -v =$ | sed 's/=/,host='"$hostname"' value=/g'|sed 's/$/ '$(timestamp_nanos)'/g' >> $HOME/.influxdata.fritz
 		
-		cat $HOME/.influxdata.fritz
-		#(curl -s -k -u $(head -n1 ~/.picoinflux.conf) -i -XPOST "$(head -n2 ~/.picoinflux.conf|tail -n1)" --data-binary @$HOME/.influxdata.fritz 2>&1 && rm  $HOME/.influxdata.fritz 2>&1 ) >/tmp/picoinfluxfritz.log 
+		#cat $HOME/.influxdata.fritz
+		(curl -s -k -u $(head -n1 ~/.picoinflux.conf) -i -XPOST "$(head -n2 ~/.picoinflux.conf|tail -n1)" --data-binary @$HOME/.influxdata.fritz 2>&1 && rm  $HOME/.influxdata.fritz 2>&1 ) >/tmp/picoinfluxfritz.log 
 		
 		done
  )
