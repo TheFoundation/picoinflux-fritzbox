@@ -32,5 +32,5 @@ TMPDATABASE=~/.influxdata.fritz
 
 <a href="https://the-foundation.gitlab.io/">
 <h3>A project of the foundation</h3>
-<div><img src="https://hcxi2.2ix.ch/gitlab/the-foundation/docker-perdition/README.md/logo.jpg" width="480" height="270"/></div></a>
+<div><img src="https://hcxi2.2ix.ch/github/TheFoundation/picoinflux-fritzbo/README.md/logo.jpg" width="480" height="270"/></div></a>
 
